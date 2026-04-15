@@ -61,11 +61,12 @@ resource "aws_security_group" "private_sg" {
 }
 
 resource "aws_instance" "public_vm" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.public.id
-  key_name      = aws_key_pair.generated_key.key_name
-  vpc_security_group_ids = [aws_security_group.public_sg.id]
+  ami                         = var.ami_id
+  instance_type               = var.instance_type
+  subnet_id                   = aws_subnet.public.id
+  key_name                    = aws_key_pair.generated_key.key_name
+  vpc_security_group_ids      = [aws_security_group.public_sg.id]
+  associate_public_ip_address = true
 
   user_data = <<-EOF
               #!/bin/bash
